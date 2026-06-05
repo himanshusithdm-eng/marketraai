@@ -1,0 +1,41 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "MarketraAI",
+  "url": "https://marketraai.com",
+  "logo": "https://marketraai.com/logo.png",
+  "description": "MarketraAI is an AI-powered marketing brand helping startups and local businesses grow with digital marketing, automation, content creation, ads, SEO, analytics, and AI solutions.",
+  "founder": {
+    "@type": "Person",
+    "name": "Himanshu Vishwakarma",
+    "sameAs": [
+      "https://www.instagram.com/imaginaryhimanshu/",
+      "https://www.linkedin.com/in/digitalhimanshu50/"
+    ]
+  },
+  "sameAs": [
+    "https://www.instagram.com/marketra.ai/",
+    "https://www.facebook.com/profile.php?id=61590414458630",
+    "https://www.linkedin.com/company/126554090/"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+91-7304382404",
+    "contactType": "customer service",
+    "areaServed": "IN",
+    "availableLanguage": [
+      "English",
+      "Hindi"
+    ]
+  },
+  "serviceType": [
+    "AI Marketing",
+    "Meta Ads with AI",
+    "Social Media Post Design with AI",
+    "AI Chatbot Integration",
+    "WordPress Website with AI",
+    "SEO with AI",
+    "Google Ads with AI",
+    "Analytics with AI"
+  ]
+}
