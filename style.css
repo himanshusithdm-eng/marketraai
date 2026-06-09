@@ -6,40 +6,78 @@
 @media(max-width:900px){.grid,.split,.form-wrap{grid-template-columns:1fr}.cards,.blog-grid{grid-template-columns:1fr 1fr}.links{position:fixed;inset:70px 16px auto 16px;background:#07142b;border:1px solid var(--line);border-radius:24px;padding:20px;display:none;flex-direction:column;align-items:flex-start}.links.open{display:flex}.menu{display:block}.nav-cta{display:none}.hero{padding-top:56px}.title{letter-spacing:-1.5px}}@media(max-width:620px){.cards,.blog-grid{grid-template-columns:1fr}.actions .btn{width:100%}.foot{display:block}.hero-card{padding:18px}.brand span{font-size:18px}}
 
 .faq-section {
-  padding: 80px 20px;
-  background: #f8fbff;
+  padding: 100px 20px;
+  background: linear-gradient(135deg, #04172b 0%, #081026 55%, #12124a 100%);
+  color: #ffffff;
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .faq-section h2 {
-  font-size: 36px;
-  color: #061b3a;
-  margin-bottom: 10px;
+  font-size: 42px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 12px;
 }
 
 .faq-subtitle {
-  color: #5f6f89;
-  margin-bottom: 40px;
+  color: #9fc7ff;
+  font-size: 16px;
+  margin-bottom: 50px;
 }
 
 .faq-box {
-  max-width: 850px;
+  max-width: 900px;
   margin: 18px auto;
-  padding: 24px;
-  background: #ffffff;
-  border: 1px solid #e3ecff;
-  border-radius: 16px;
+  padding: 28px 32px;
+  background: rgba(7, 18, 39, 0.82);
+  border: 1px solid rgba(95, 151, 255, 0.25);
+  border-radius: 20px;
   text-align: left;
-  box-shadow: 0 10px 30px rgba(0, 70, 180, 0.06);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.faq-box:hover {
+  transform: translateY(-5px);
+  border-color: rgba(56, 189, 248, 0.6);
+  box-shadow: 0 22px 60px rgba(37, 99, 235, 0.25);
 }
 
 .faq-box h3 {
-  color: #061b3a;
+  color: #ffffff;
   font-size: 20px;
-  margin-bottom: 10px;
+  font-weight: 700;
+  margin-bottom: 12px;
 }
 
 .faq-box p {
-  color: #53657d;
-  line-height: 1.7;
+  color: #b9c9e6;
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .faq-section {
+    padding: 70px 16px;
+  }
+
+  .faq-section h2 {
+    font-size: 32px;
+  }
+
+  .faq-box {
+    padding: 22px;
+  }
+
+  .faq-box h3 {
+    font-size: 18px;
+  }
+
+  .faq-box p {
+    font-size: 15px;
+  }
 }
