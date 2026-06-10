@@ -1,15 +1,15 @@
-# MarketraAI
+# Ambivora 
 
-> MarketraAI is an AI-powered marketing brand for startups and local businesses.
+> Ambivora is an AI-powered marketing brand for startups and local businesses.
 
-MarketraAI helps businesses grow using AI-driven marketing, automation, content creation, paid ads, SEO, analytics, website solutions, and chatbot integration.
+Ambivora helps businesses grow using AI-driven marketing, automation, content creation, paid ads, SEO, analytics, website solutions, and chatbot integration.
 
 ## Website
-- Home: https://marketraai.com/
-- About: https://marketraai.com/about.html
-- Services: https://marketraai.com/services.html
-- Blogs: https://marketraai.com/blogs.html
-- Contact: https://marketraai.com/contact.html
+- Home: https://ambivora.com/
+- About: https://ambivora.com/about.html
+- Services: https://ambivora.com/services.html
+- Blogs: https://ambivora.com/blogs.html
+- Contact: https://ambivora.com/contact.html
 
 ## Services
 - AI + Marketing
@@ -22,10 +22,10 @@ MarketraAI helps businesses grow using AI-driven marketing, automation, content 
 - Analytics with AI
 
 ## Founder
-MarketraAI was founded by Himanshu Vishwakarma.
+Ambivora was founded by Himanshu Vishwakarma.
 
 ## Social Links
-- Instagram: https://www.instagram.com/marketra.ai/
+- Instagram: https://www.instagram.com/ambivora_official/
 - Facebook: https://www.facebook.com/profile.php?id=61590414458630
 - LinkedIn: https://www.linkedin.com/company/126554090/
 
