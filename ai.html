@@ -6,114 +6,23 @@
   <title>Ambivora AI Assistant</title>
 
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #F8F9FC;
-      color: #0D1B3E;
-    }
-
-    .chat-container {
-      max-width: 900px;
-      margin: 40px auto;
-      background: #ffffff;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      overflow: hidden;
-    }
-
-    .chat-header {
-      background: #0D1B3E;
-      color: white;
-      padding: 25px;
-      text-align: center;
-    }
-
-    .chat-header h1 {
-      margin: 0;
-      font-size: 32px;
-    }
-
-    .chat-header span {
-      color: #1E90FF;
-    }
-
-    .chat-box {
-      height: 450px;
-      padding: 25px;
-      overflow-y: auto;
-      background: #F8F9FC;
-    }
-
-    .message {
-      max-width: 75%;
-      padding: 14px 18px;
-      margin-bottom: 15px;
-      border-radius: 16px;
-      line-height: 1.5;
-    }
-
-    .bot {
-      background: #ffffff;
-      color: #0D1B3E;
-      border: 1px solid #e5e7eb;
-    }
-
-    .user {
-      background: #1E90FF;
-      color: white;
-      margin-left: auto;
-    }
-
-    .chat-input {
-      display: flex;
-      gap: 10px;
-      padding: 20px;
-      background: white;
-      border-top: 1px solid #e5e7eb;
-    }
-
-    .chat-input input {
-      flex: 1;
-      padding: 15px;
-      border-radius: 12px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      outline: none;
-    }
-
-    .chat-input button {
-      background: #1E90FF;
-      color: white;
-      border: none;
-      padding: 15px 25px;
-      border-radius: 12px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .chat-input button:hover {
-      background: #0D1B3E;
-    }
-
-    @media (max-width: 600px) {
-      .chat-container {
-        margin: 15px;
-      }
-
-      .message {
-        max-width: 90%;
-      }
-
-      .chat-input {
-        flex-direction: column;
-      }
-    }
+    body { margin: 0; font-family: Arial, sans-serif; background: #F8F9FC; color: #0D1B3E; }
+    .chat-container { max-width: 900px; margin: 40px auto; background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; }
+    .chat-header { background: #0D1B3E; color: white; padding: 25px; text-align: center; }
+    .chat-header h1 { margin: 0; font-size: 32px; }
+    .chat-header span { color: #1E90FF; }
+    .chat-box { height: 450px; padding: 25px; overflow-y: auto; background: #F8F9FC; }
+    .message { max-width: 75%; padding: 14px 18px; margin-bottom: 15px; border-radius: 16px; line-height: 1.5; white-space: pre-wrap; }
+    .bot { background: #fff; color: #0D1B3E; border: 1px solid #e5e7eb; }
+    .user { background: #1E90FF; color: white; margin-left: auto; }
+    .chat-input { display: flex; gap: 10px; padding: 20px; background: white; border-top: 1px solid #e5e7eb; }
+    .chat-input input { flex: 1; padding: 15px; border-radius: 12px; border: 1px solid #ccc; font-size: 16px; outline: none; }
+    .chat-input button { background: #1E90FF; color: white; border: none; padding: 15px 25px; border-radius: 12px; font-size: 16px; cursor: pointer; }
+    .chat-input button:hover { background: #0D1B3E; }
   </style>
 </head>
 
 <body>
-
   <div class="chat-container">
     <div class="chat-header">
       <h1>Ambivora <span>AI</span></h1>
@@ -133,66 +42,37 @@
   </div>
 
   <script>
-    function sendMessage() {
+    async function sendMessage() {
       const input = document.getElementById("userInput");
       const chatBox = document.getElementById("chatBox");
       const message = input.value.trim();
 
-      if (message === "") return;
+      if (!message) return;
 
       chatBox.innerHTML += `<div class="message user">${message}</div>`;
-
       input.value = "";
 
-      async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const chatBox = document.getElementById("chatBox");
-  const message = input.value.trim();
+      chatBox.innerHTML += `<div class="message bot" id="loading">Thinking...</div>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
 
-  if (!message) return;
+      try {
+        const response = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: message })
+        });
 
-  chatBox.innerHTML += `<div class="message user">${message}</div>`;
-  input.value = "";
+        const data = await response.json();
 
-  chatBox.innerHTML += `
-    <div class="message bot" id="loading">
-      Thinking...
-    </div>
-  `;
+        document.getElementById("loading").remove();
 
-  chatBox.scrollTop = chatBox.scrollHeight;
-
-  try {
-    const response = await fetch("/api/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        message: message
-      })
-    });
-
-    const data = await response.json();
-
-    document.getElementById("loading").remove();
-
-    chatBox.innerHTML += `
-      <div class="message bot">
-        ${data.reply}
-      </div>
-    `;
-  } catch (error) {
-    document.getElementById("loading").innerHTML =
-      "Error connecting to AI.";
-  }
-
-  chatBox.scrollTop = chatBox.scrollHeight;
-    }
+        chatBox.innerHTML += `<div class="message bot">${data.reply || "No reply received."}</div>`;
+      } catch (error) {
+        document.getElementById("loading").innerHTML = "❌ Error connecting to AI. api/chat.js check karo.";
+      }
 
       chatBox.scrollTop = chatBox.scrollHeight;
     }
   </script>
-
 </body>
 </html>
