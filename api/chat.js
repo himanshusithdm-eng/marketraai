@@ -17,7 +17,7 @@ export default async function handler(req, res) {
         messages: [
           {
             role: "system",
-            content: "You are Ambivora AI, an expert digital marketing assistant. Help with SEO, Meta Ads, content creation, branding, AI tools and social media marketing. Reply in simple Hindi-English."
+            content: "You are Ambivora AI, a helpful digital marketing assistant. Reply in simple Hinglish."
           },
           {
             role: "user",
@@ -30,13 +30,19 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
+    if (!response.ok) {
+      return res.status(200).json({
+        reply: "SambaNova error: " + JSON.stringify(data)
+      });
+    }
+
     return res.status(200).json({
-      reply: data.choices?.[0]?.message?.content || "No response received."
+      reply: data.choices?.[0]?.message?.content || "No reply received."
     });
 
   } catch (error) {
-    return res.status(500).json({
-      reply: "Server error. Check SambaNova API key."
+    return res.status(200).json({
+      reply: "Server error: " + error.message
     });
   }
 }
