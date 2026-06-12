@@ -6,33 +6,167 @@
   <title>Ambivora AI Assistant</title>
 
   <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #F8F9FC; color: #0D1B3E; }
-    .chat-container { max-width: 900px; margin: 40px auto; background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; }
-    .chat-header { background: #0D1B3E; color: white; padding: 25px; text-align: center; }
-    .chat-header h1 { margin: 0; font-size: 32px; }
-    .chat-header span { color: #1E90FF; }
-    .chat-box { height: 450px; padding: 25px; overflow-y: auto; background: #F8F9FC; }
-    .message { max-width: 75%; padding: 14px 18px; margin-bottom: 15px; border-radius: 16px; line-height: 1.5; white-space: pre-wrap; }
-    .bot { background: #fff; color: #0D1B3E; border: 1px solid #e5e7eb; }
-    .user { background: #1E90FF; color: white; margin-left: auto; }
-    .chat-input { display: flex; gap: 10px; padding: 20px; background: white; border-top: 1px solid #e5e7eb; }
-    .chat-input input { flex: 1; padding: 15px; border-radius: 12px; border: 1px solid #ccc; font-size: 16px; outline: none; }
-    .chat-input button { background: #1E90FF; color: white; border: none; padding: 15px 25px; border-radius: 12px; font-size: 16px; cursor: pointer; }
-    .chat-input button:hover { background: #0D1B3E; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #F8F9FC;
+      color: #0D1B3E;
+    }
+
+    .chat-container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: #0D1B3E;
+      color: white;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .chat-header h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    .chat-header span {
+      color: #1E90FF;
+    }
+
+    .chat-box {
+      height: 430px;
+      padding: 25px;
+      overflow-y: auto;
+      background: #F8F9FC;
+    }
+
+    .message {
+      max-width: 75%;
+      padding: 14px 18px;
+      margin-bottom: 15px;
+      border-radius: 16px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .bot {
+      background: #ffffff;
+      color: #0D1B3E;
+      border: 1px solid #e5e7eb;
+    }
+
+    .user {
+      background: #1E90FF;
+      color: white;
+      margin-left: auto;
+    }
+
+    .quick-prompts {
+      display: flex;
+      gap: 10px;
+      padding: 15px 20px;
+      background: #ffffff;
+      border-top: 1px solid #e5e7eb;
+      overflow-x: auto;
+    }
+
+    .quick-prompts button {
+      background: #F8F9FC;
+      color: #0D1B3E;
+      border: 1px solid #d8e3f3;
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+
+    .quick-prompts button:hover {
+      background: #1E90FF;
+      color: white;
+      border-color: #1E90FF;
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 10px;
+      padding: 20px;
+      background: white;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .chat-input button {
+      background: #1E90FF;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .chat-input button:hover {
+      background: #0D1B3E;
+    }
+
+    @media (max-width: 600px) {
+      .chat-container {
+        margin: 15px;
+      }
+
+      .message {
+        max-width: 90%;
+      }
+
+      .chat-input {
+        flex-direction: column;
+      }
+    }
   </style>
 </head>
 
 <body>
+
   <div class="chat-container">
     <div class="chat-header">
       <h1>Ambivora <span>AI</span></h1>
-      <p>Your AI Marketing Assistant</p>
+      <p>Your AI-powered marketing assistant</p>
     </div>
 
     <div class="chat-box" id="chatBox">
       <div class="message bot">
-        Hi 👋 I am Ambivora AI. Ask me anything about marketing, SEO, ads, branding, or content ideas.
+👋 Welcome to Ambivora AI
+
+Ask me about:
+✓ SEO
+✓ Meta Ads
+✓ Social Media
+✓ Branding
+✓ Content Creation
+✓ AI Automation
       </div>
+    </div>
+
+    <div class="quick-prompts">
+      <button onclick="quickPrompt('Give me 10 Instagram content ideas for my business')">Instagram Ideas</button>
+      <button onclick="quickPrompt('Create Meta Ads copy for my business')">Meta Ads Copy</button>
+      <button onclick="quickPrompt('Give me SEO ideas for my website')">SEO Ideas</button>
+      <button onclick="quickPrompt('Create a 7-day content calendar')">Content Calendar</button>
+      <button onclick="quickPrompt('Give me branding strategy for my business')">Brand Strategy</button>
     </div>
 
     <div class="chat-input">
@@ -42,6 +176,21 @@
   </div>
 
   <script>
+    let conversation = [];
+
+    const inputBox = document.getElementById("userInput");
+
+    inputBox.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        sendMessage();
+      }
+    });
+
+    function quickPrompt(text) {
+      inputBox.value = text;
+      sendMessage();
+    }
+
     async function sendMessage() {
       const input = document.getElementById("userInput");
       const chatBox = document.getElementById("chatBox");
@@ -49,30 +198,72 @@
 
       if (!message) return;
 
-      chatBox.innerHTML += `<div class="message user">${message}</div>`;
+      chatBox.innerHTML += `<div class="message user">${escapeHtml(message)}</div>`;
       input.value = "";
 
-      chatBox.innerHTML += `<div class="message bot" id="loading">Thinking...</div>`;
+      conversation.push({
+        role: "user",
+        content: message
+      });
+
+      chatBox.innerHTML += `
+        <div class="message bot" id="loading">
+          Ambivora AI is thinking...
+        </div>
+      `;
+
       chatBox.scrollTop = chatBox.scrollHeight;
 
       try {
         const response = await fetch("/api/chat", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: message })
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            message: message,
+            messages: conversation
+          })
         });
 
         const data = await response.json();
 
-        document.getElementById("loading").remove();
+        const loading = document.getElementById("loading");
+        if (loading) loading.remove();
 
-        chatBox.innerHTML += `<div class="message bot">${data.reply || "No reply received."}</div>`;
+        const reply = data.reply || "No reply received.";
+
+        conversation.push({
+          role: "assistant",
+          content: reply
+        });
+
+        chatBox.innerHTML += `
+          <div class="message bot">
+            ${escapeHtml(reply)}
+          </div>
+        `;
+
       } catch (error) {
-        document.getElementById("loading").innerHTML = "❌ Error connecting to AI. api/chat.js check karo.";
+        const loading = document.getElementById("loading");
+
+        if (loading) {
+          loading.innerHTML = "❌ Error connecting to Ambivora AI.";
+        }
       }
 
       chatBox.scrollTop = chatBox.scrollHeight;
     }
+
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
   </script>
+
 </body>
 </html>
